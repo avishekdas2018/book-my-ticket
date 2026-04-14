@@ -15,7 +15,6 @@ import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-// Load environment variables
 dotenv.config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -47,7 +46,7 @@ const app = new express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Parse JSON request bodies
+app.use(express.json());
 
 const JWT_SECRET = process.env.JWT_SECRET || "book-my-ticket-secret-key-2024";
 
@@ -70,13 +69,12 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-// Serve the frontend
+// frontend
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-// ORIGINAL ENDPOINT: get all seats
-
+// get all seats
 app.get("/seats", async (req, res) => {
   try {
     const result = await pool.query("select * from seats"); // equivalent to Seats.find() in mongoose
@@ -87,9 +85,7 @@ app.get("/seats", async (req, res) => {
   }
 });
 
-// ============================================
-// NEW ENDPOINT: Auth Routes
-// ============================================
+// Auth Routes
 app.post("/api/auth/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -192,9 +188,8 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-// ============================================
-// NEW ENDPOINT: Mocked Movies
-// ============================================
+// Mocked Movies
+
 const movies = [
   {
     id: 1,
@@ -235,9 +230,7 @@ app.get("/api/movies", (req, res) => {
   res.json(movies);
 });
 
-// ============================================
-// NEW ENDPOINT: Protected booking
-// ============================================
+// Protected booking
 app.put("/book/:seatId", authMiddleware, async (req, res) => {
   const conn = await pool.connect();
 

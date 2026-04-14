@@ -5,11 +5,10 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "start": "node index.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.mjs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Avishek Das",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.3",
